@@ -21,4 +21,5 @@ function handleInput() {
     document.getElementById('result').innerHTML = 'Please enter a positive number.';
   }
 }
+
 elem.addEventListener('input', handleInput);
