@@ -13,7 +13,24 @@ h1 {
   text-align: center;
 }
 
+img {
+  width: 225px;
+  height: 250px;
+}
+
 .donut-chart {
   border-radius: 0.8rem;
   background-color: var(--white);
+}
+
+section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  text-align: center;
+}
+
+.character {
+  max-width: 250px;
+  margin-top: 2em;
 }
