@@ -1,0 +1,43 @@
+.App {
+  text-align: center;
+}
+
+.nav {
+  background-color: #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  padding: 0 1rem;
+}
+
+.nav ul {
+  padding: 0;
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+.nav a {
+  color: antiquewhite;
+  text-decoration: none;
+  padding: .25rem;
+}
+
+.nav li.active {
+  background-color: #555;
+}
+
+.nav li:hover {
+  background-color: #777;
+}
+
+.home {
+  font-size: 2rem;
+}
+
+.chart-container {
+  display: flex;
+  justify-content: center;
+}
+
