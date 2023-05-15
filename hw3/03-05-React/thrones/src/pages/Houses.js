@@ -1,6 +1,8 @@
-import Chart from "chart.js/auto";
-
-const donutChart = document.getElementById("donut-chart");
+import { Doughnut } from "react-chartjs-2";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Chart, registerables } from "chart.js";
+Chart.register(...registerables);
 
 const backgroundColors = [
   "rgba(54, 162, 235, 0.8)",
@@ -30,23 +32,33 @@ const borderColors = [
   "rgba(78, 52, 199, 1)",
 ];
 
-async function renderChart() {
+var houseCount = {
+  Stark: 0,
+  Arryn: 0,
+  Baratheon: 0,
+  Tully: 0,
+  Greyjoy: 0,
+  Lannister: 0,
+  Tyrell: 0,
+  Martell: 0,
+  Targaryen: 0,
+};
 
-  let houseCount = {
-    Stark: 0,
-    Arryn: 0,
-    Baratheon: 0,
-    Tully: 0,
-    Greyjoy: 0,
-    Lannister: 0,
-    Tyrell: 0,
-    Martell: 0,
-    Targaryen: 0,
-  };
-  const characters = await getCharacters();
-  console.log(characters);
+function Houses(props) {
+  const [posts, setPosts] = useState([]);
+  const url = "https://thronesapi.com/api/v2/Characters";
 
-  characters.forEach((character) => {
+  useEffect(() => {
+    const fetchPost = async () => {
+      let response = await axios.get(url);
+      setPosts(response.data);
+    };
+    fetchPost();
+  });
+
+  console.log(posts);
+
+  posts.forEach((character) => {
     if (character.family.includes("Stark")) houseCount.Stark += 1;
     else if (character.family.includes("Arryn")) houseCount.Arryn += 1;
     else if (character.family.includes("Baratheon")) houseCount.Baratheon += 1;
@@ -62,66 +74,46 @@ async function renderChart() {
       houseCount.Targaryen += 1;
   });
 
-  new Chart(donutChart, {
-    type: "doughnut",
-    data: {
-      labels: [
-        "House Stark",
-        "House Arryn",
-        "House Baratheon",
-        "House Tully",
-        "House Greyjoy",
-        "House Lannister",
-        "House Tyrell",
-        "House Martell",
-        "House Targaryen",
-      ],
-      datasets: [
-        {
-          label: "Houses of GOT",
-          data: [
-            houseCount["Stark"],
-            houseCount["Arryn"],
-            houseCount["Baratheon"],
-            houseCount["Tully"],
-            houseCount["Greyjoy"],
-            houseCount["Lannister"],
-            houseCount["Tyrell"],
-            houseCount["Martell"],
-            houseCount["Targaryen"],
-          ],
-          backgroundColor: backgroundColors,
-          borderColor: borderColors,
-          borderWidth: 1,
-        },
-      ],
-    },
-  });
-}
+  const data = {
+    labels: [
+      "House Stark",
+      "House Arryn",
+      "House Baratheon",
+      "House Tully",
+      "House Greyjoy",
+      "House Lannister",
+      "House Tyrell",
+      "House Martell",
+      "House Targaryen",
+    ],
+    datasets: [
+      {
+        label: "Houses of GOT",
+        data: [
+          houseCount["Stark"],
+          houseCount["Arryn"],
+          houseCount["Baratheon"],
+          houseCount["Tully"],
+          houseCount["Greyjoy"],
+          houseCount["Lannister"],
+          houseCount["Tyrell"],
+          houseCount["Martell"],
+          houseCount["Targaryen"],
+        ],
+        backgroundColor: backgroundColors,
+        borderColor: borderColors,
+        borderWidth: 1,
+      },
+    ],
+  };
 
-async function getCharacters() {
-  const url = "https://thronesapi.com/api/v2/Characters";
-  try {
-    let response = await fetch(url);
-    return await response.json();
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-renderChart();
-
-function Houses() {
   return (
-    <div className="chart-container">
-      <div className="chart">
-        <h1>Exercise 02 - Charts</h1>
-        <canvas
-          id="donut-chart"
-          className="donut-chart"
-          aria-label="donut chart"
-          role="img"
-        ></canvas>
+    <div className="container">
+      <h1>GoT Houses</h1>
+      <div className="chart-container">
+        <div>
+          <Doughnut data={data} />
+        </div>
       </div>
     </div>
   );

@@ -44,13 +44,13 @@ async function renderChart() {
     Martell: 0,
     Targaryen: 0,
   };
-  const characters = await  getCharacters();
+  const characters = await getCharacters();
   console.log(characters);
 
   characters.forEach((character) => {
     if (character.family.includes("Stark")) houseCount.Stark += 1;
     else if (character.family.includes("Arryn")) houseCount.Arryn += 1;
-    else if (character.family.includes("Baratheon"))  houseCount.Baratheon += 1;
+    else if (character.family.includes("Baratheon")) houseCount.Baratheon += 1;
     else if (character.family.includes("Tully")) houseCount.Tully += 1;
     else if (character.family.includes("Greyjoy")) houseCount.Greyjoy += 1;
     else if (character.family.includes("Lannister")) houseCount.Lannister += 1;
@@ -98,7 +98,7 @@ async function renderChart() {
       ],
     },
   });
-};
+}
 
 async function getCharacters() {
   console.log("in get characters");
