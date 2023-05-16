@@ -32,6 +32,8 @@ const borderColors = [
   "rgba(78, 52, 199, 1)",
 ];
 
+const url = "https://thronesapi.com/api/v2/Characters";
+
 var houseCount = {
   Stark: 0,
   Arryn: 0,
@@ -45,20 +47,17 @@ var houseCount = {
 };
 
 function Houses(props) {
-  const [posts, setPosts] = useState([]);
-  const url = "https://thronesapi.com/api/v2/Characters";
+  const [characters, setCharacters] = useState([]);
 
   useEffect(() => {
-    const fetchPost = async () => {
+    const fetchData = async () => {
       let response = await axios.get(url);
-      setPosts(response.data);
+      setCharacters(response.data);
     };
-    fetchPost();
+    fetchData();
   });
 
-  console.log(posts);
-
-  posts.forEach((character) => {
+  characters.forEach((character) => {
     if (character.family.includes("Stark")) houseCount.Stark += 1;
     else if (character.family.includes("Arryn")) houseCount.Arryn += 1;
     else if (character.family.includes("Baratheon")) houseCount.Baratheon += 1;
@@ -108,7 +107,7 @@ function Houses(props) {
   };
 
   return (
-    <div className="container">
+    <div className="houses">
       <h1>GoT Houses</h1>
       <div className="chart-container">
         <div>

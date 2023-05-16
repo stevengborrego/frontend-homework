@@ -1,6 +1,6 @@
 export default function Navbar() {
   return <nav className="nav">
-    <a href="/home" className="home">Thrones</a>
+    <a href="/" className="home">Thrones</a>
     <ul>
       <li>
         <a href="/search">Search</a>
