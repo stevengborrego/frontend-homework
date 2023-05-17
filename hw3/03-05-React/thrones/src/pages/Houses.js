@@ -1,7 +1,7 @@
-import { Doughnut } from "react-chartjs-2";
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { useState, useEffect } from "react";
 import { Chart, registerables } from "chart.js";
+import { Doughnut } from "react-chartjs-2";
+import axios from "axios";
 Chart.register(...registerables);
 
 const backgroundColors = [
@@ -46,7 +46,7 @@ var houseCount = {
   Targaryen: 0,
 };
 
-function Houses(props) {
+function Houses() {
   const [characters, setCharacters] = useState([]);
 
   useEffect(() => {
